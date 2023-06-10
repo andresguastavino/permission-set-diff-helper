@@ -90,10 +90,12 @@ function activate(context) {
               const indexOfClosingTagOpening = contentLine.indexOf('</');
               const valueName = contentLine.substring(0, indexOfOpeningTagClosing + 1);
               const valueValue = contentLine.substring(indexOfOpeningTagClosing + 1, indexOfClosingTagOpening);
-
+              
               if (typesOpeningTagsToValues[currentType] !== undefined) {
                 if (currentValueName === undefined) {
-                  if (typesOpeningTagsToValues[currentType].includes(valueName)) {
+                  if (typesOpeningTagsToValues[currentType].includes(valueName)
+                    && typesValuesNames.includes(valueName)
+                  ) {
                     if (!typesToNames[currentType].includes(valueValue)) {
                       typesToNames[currentType].push(valueValue);
                     }
@@ -105,6 +107,7 @@ function activate(context) {
                       const auxValueName = auxContentLine.substring(0, auxIndexOfOpeningTagClosing + 1);
                       if(typesOpeningTagsToValues[currentType] !== undefined 
                         && typesOpeningTagsToValues[currentType].includes(auxValueName)
+                        && typesValuesNames.includes(valueName)
                       ) {
                         currentValueName = auxValueName;
                       }
